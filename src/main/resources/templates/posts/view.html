@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title}"></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .post-content {
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+        .post-meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        .actions a, .actions button {
+            margin-right: 10px;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .actions a {
+            background: #f0f0f0;
+            color: #333;
+        }
+        .actions button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .actions form {
+            display: inline;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${post.title}"></h1>
+<div class="post-content" th:text="${post.content}"></div>
+<div class="post-meta">
+    By <span th:text="${post.author}"></span> on
+    <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+</div>
+
+<div class="actions">
+    <a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
+    <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post">
+        <button type="submit">Delete</button>
+    </form>
+</div>
+
+<a class="back-link" href="/posts">Back to all posts</a>
+</body>
+</html>
